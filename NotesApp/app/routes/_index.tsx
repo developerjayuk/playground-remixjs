@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import homeStyles from "~/styles/home.css";
 
 export const meta: MetaFunction = () => {
   return [
@@ -7,6 +8,10 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
+
+export function links() {
+  return [{rel: "stylesheet", href: homeStyles}]
+}
 
 export default function Index() {
   return (
