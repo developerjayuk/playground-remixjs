@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -8,7 +9,7 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
-import styles from "~/styles/main.css"
+import styles from "./styles/main.css"
 import MainNavigation from "./components/MainNavigation";
 
 export const links: LinksFunction = () => [
@@ -51,4 +52,60 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+// ErrorBoundary is used to catch normal errors in the application
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>ErrorBoundary: An error occurred</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <header>
+          <MainNavigation />
+        </header>
+        <main className="error">
+          <h1>An error occurred</h1>
+          <p>{error.message}</p>
+          <p>Back to <Link to="/">Home</Link> my friend</p>
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+// Catchboundary is used to catch response errors in the application
+export function CatchBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>CatchBoundary: An error occurred</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <header>
+          <MainNavigation />
+        </header>
+        <main className="error">
+          <h1>An error occurred</h1>
+          <p>{error.message}</p>
+          <p>Back to <Link to="/">Home</Link> my friend</p>
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
 }
